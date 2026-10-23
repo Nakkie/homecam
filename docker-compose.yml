@@ -1,0 +1,27 @@
+name: homecam
+
+services:
+  go2rtc:
+    image: alexxit/go2rtc:latest
+    container_name: homecam-go2rtc
+    restart: unless-stopped
+    volumes:
+      - go2rtc-config:/config
+
+  app:
+    build: .
+    container_name: homecam-app
+    restart: unless-stopped
+    ports:
+      - "${HOMECAM_PORT:-8081}:8080"
+    environment:
+      - GO2RTC_URL=http://go2rtc:1984
+      - DATA_DIR=/data
+    volumes:
+      - homecam-data:/data
+    depends_on:
+      - go2rtc
+
+volumes:
+  homecam-data:
+  go2rtc-config:

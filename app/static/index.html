@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homecam</title>
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="panel" id="panel">
+        <header class="panel-header">
+          <h1>Homecam</h1>
+          <button type="button" class="btn-icon" id="toggle-panel" title="Hide panel" aria-label="Toggle panel">
+            ‹
+          </button>
+        </header>
+
+        <form id="add-form" class="add-form">
+          <label>
+            Name
+            <input type="text" name="name" required placeholder="Front door" autocomplete="off" />
+          </label>
+          <label>
+            RTSP URL
+            <input
+              type="text"
+              name="rtsp"
+              required
+              placeholder="rtsp://user:pass@192.168.1.10/stream"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </label>
+          <button type="submit" class="btn-primary">Add camera</button>
+          <p class="hint">
+            Use <code>rtsp://</code> (lowercase). If your password contains <code>@</code> or
+            <code>#</code>, encode them (e.g. <code>%40</code> for <code>@</code>).
+          </p>
+          <p class="form-error" id="form-error" hidden></p>
+        </form>
+
+        <section class="camera-list-section">
+          <h2>Cameras</h2>
+          <p class="hint" id="empty-hint">No cameras yet. Add an RTSP URL above.</p>
+          <ul id="camera-list" class="camera-list"></ul>
+        </section>
+
+        <section class="layout-section">
+          <h2>Grid layout</h2>
+          <div class="layout-buttons" role="group" aria-label="Grid layout">
+            <button type="button" data-layout="single" class="layout-btn active">Single</button>
+            <button type="button" data-layout="quad" class="layout-btn">Quad</button>
+            <button type="button" data-layout="nine" class="layout-btn">Nine</button>
+          </div>
+          <p class="hint">Scroll vertically between pages. Layout is saved in this browser only.</p>
+          <button type="button" id="sound-btn" class="layout-btn sound-btn" aria-pressed="false">
+            Sound off
+          </button>
+          <p class="hint">
+            Browsers block autoplay with sound. Turn sound on, then set each camera’s volume.
+            Those levels stay put when you switch browser tabs.
+          </p>
+        </section>
+      </aside>
+
+      <main class="wall-wrap">
+        <button type="button" class="panel-fab" id="open-panel" hidden aria-label="Show panel">☰</button>
+        <div id="wall" class="wall" tabindex="0"></div>
+      </main>
+    </div>
+
+    <script type="module" src="/static/app.js"></script>
+  </body>
+</html>

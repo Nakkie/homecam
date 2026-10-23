@@ -1,0 +1,6 @@
+.git
+.cursor
+plan.md
+README.md
+**/__pycache__
+**/*.pyc
